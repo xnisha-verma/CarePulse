@@ -90,7 +90,7 @@ export default function Doctors() {
             <input
               className="input"
               placeholder="Search doctor by name..."
-              style={{ paddingLeft: 42 }}
+              style={{ paddingLeft: 42, borderRadius: 30 }}
               value={search}
               onChange={(e) => {
                 setPage(0);
@@ -101,6 +101,7 @@ export default function Doctors() {
           <select
             className="input"
             value={specialization}
+            style={{ borderRadius: 30 }}
             onChange={(e) => {
               setPage(0);
               setSpecialization(e.target.value);

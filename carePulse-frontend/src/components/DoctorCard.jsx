@@ -4,15 +4,20 @@ import { Link } from "react-router-dom";
 export default function DoctorCard({ doctor }) {
   return (
     <div
-      className="glass"
       style={{
         padding: "24px",
         cursor: "pointer",
-        transition: "all 0.3s ease",
         display: "flex",
         flexDirection: "column",
         gap: 16,
+        background: "#ffffff",
+        borderRadius: 20,
+        boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+        border: "1px solid rgba(0,0,0,0.04)",
+        transition: "all 0.2s"
       }}
+      onMouseOver={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 20px 40px -10px rgba(0,0,0,0.12)" }}
+      onMouseOut={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.08)" }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
         <div

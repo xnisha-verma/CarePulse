@@ -11,6 +11,8 @@ import PatientDashboard from "./pages/PatientDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import "./styles/globals.css";
 
+import ChatbotWidget from "./components/ChatbotWidget";
+
 export default function App() {
   return (
     <AuthProvider>
@@ -47,6 +49,7 @@ export default function App() {
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <ChatbotWidget />
       </BrowserRouter>
     </AuthProvider>
   );

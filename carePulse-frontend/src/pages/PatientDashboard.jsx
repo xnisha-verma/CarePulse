@@ -122,12 +122,15 @@ export default function PatientDashboard() {
           ].map((s) => (
             <div
               key={s.label}
-              className="glass"
               style={{
                 padding: "20px 24px",
                 display: "flex",
                 alignItems: "center",
                 gap: 14,
+                background: "#ffffff",
+                borderRadius: 20,
+                boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                border: "1px solid rgba(0,0,0,0.04)"
               }}
             >
               <div style={{ color: s.color }}>{s.icon}</div>
@@ -167,11 +170,14 @@ export default function PatientDashboard() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {upcoming.length === 0 && past.length === 0 && (
               <div
-                className="glass"
                 style={{
                   padding: "40px",
                   textAlign: "center",
                   color: "var(--text-secondary)",
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)"
                 }}
               >
                 No appointments yet.{" "}
@@ -184,7 +190,6 @@ export default function PatientDashboard() {
             {upcoming.map((a) => (
               <div
                 key={a.id}
-                className="glass"
                 style={{
                   padding: "20px 24px",
                   display: "flex",
@@ -192,7 +197,14 @@ export default function PatientDashboard() {
                   justifyContent: "space-between",
                   flexWrap: "wrap",
                   gap: 12,
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)",
+                  transition: "all 0.2s"
                 }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 16px 36px -10px rgba(0,0,0,0.12)" }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.08)" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div
@@ -230,7 +242,7 @@ export default function PatientDashboard() {
             ))}
             <h3 style={{ marginTop: 16, marginBottom: 6 }}>Past</h3>
             {past.map((a) => (
-              <div key={a.id} className="glass" style={{ padding: "16px 20px" }}>
+              <div key={a.id} style={{ padding: "16px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)" }}>
                 <p style={{ fontWeight: 500 }}>{a.doctorName}</p>
                 <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
                   {a.specialization} · {a.appointmentDate} at{" "}

@@ -70,7 +70,7 @@ export default function DoctorDashboard() {
         </h1>
         <p style={{ color: "var(--text-secondary)", marginBottom: 32 }}>Here is your appointment panel.</p>
         {error && <p style={{ color: "var(--danger)", marginBottom: 16 }}>{error}</p>}
-        <div className="glass" style={{ padding: 14, marginBottom: 18 }}>
+        <div style={{ padding: 16, marginBottom: 24, background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)" }}>
           <p style={{ color: "var(--text-secondary)" }}>
             Total Patients Served:{" "}
             <span style={{ color: "var(--accent)", fontWeight: 700 }}>{totalPatients}</span>
@@ -119,6 +119,10 @@ export default function DoctorDashboard() {
                   padding: 40,
                   textAlign: "center",
                   color: "var(--text-secondary)",
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)"
                 }}
               >
                 No pending appointments 🎉
@@ -135,7 +139,14 @@ export default function DoctorDashboard() {
                   justifyContent: "space-between",
                   flexWrap: "wrap",
                   gap: 12,
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)",
+                  transition: "all 0.2s"
                 }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 16px 36px -10px rgba(0,0,0,0.12)" }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.08)" }}
               >
                 <div>
                   <p style={{ fontWeight: 500 }}>{a.patientName}</p>
@@ -200,6 +211,10 @@ export default function DoctorDashboard() {
                   padding: 40,
                   textAlign: "center",
                   color: "var(--text-secondary)",
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)"
                 }}
               >
                 No appointments scheduled for today.
@@ -216,7 +231,14 @@ export default function DoctorDashboard() {
                   justifyContent: "space-between",
                   flexWrap: "wrap",
                   gap: 12,
+                  background: "#ffffff",
+                  borderRadius: 20,
+                  boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.04)",
+                  transition: "all 0.2s"
                 }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 16px 36px -10px rgba(0,0,0,0.12)" }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.08)" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <Calendar size={18} color="var(--accent)" />
@@ -237,12 +259,12 @@ export default function DoctorDashboard() {
         {tab === "completed" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {completed.length === 0 && (
-              <div className="glass" style={{ padding: 30, color: "var(--text-secondary)" }}>
+              <div style={{ padding: 30, color: "var(--text-secondary)", background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)" }}>
                 No completed appointments yet.
               </div>
             )}
             {completed.map((a) => (
-              <div key={a.id} className="glass" style={{ padding: "16px 20px" }}>
+              <div key={a.id} style={{ padding: "16px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)" }}>
                 <p style={{ fontWeight: 600 }}>{a.patientName}</p>
                 <p style={{ color: "var(--text-secondary)", fontSize: 13 }}>
                   {a.appointmentDate} · {a.appointmentTime?.slice(0, 5)}

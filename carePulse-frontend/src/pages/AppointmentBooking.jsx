@@ -69,7 +69,7 @@ export default function AppointmentBooking() {
           Select a date and time to book your appointment.
         </p>
 
-        <div className="glass" style={{ padding: 24, maxWidth: 720 }}>
+        <div style={{ padding: 40, maxWidth: 640, background: "#ffffff", borderRadius: 24, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.1)", border: "1px solid rgba(0,0,0,0.05)" }}>
           {/* Date Picker */}
           <label style={{ display: "block", marginBottom: 8, color: "var(--text-secondary)" }}>
             Select Date
@@ -94,14 +94,18 @@ export default function AppointmentBooking() {
                   type="button"
                   onClick={() => setTime(t)}
                   style={{
-                    padding: "8px 14px",
-                    borderRadius: 8,
-                    border: "1px solid var(--border)",
-                    background: time === t ? "var(--accent)" : "transparent",
-                    color: time === t ? "#061117" : "var(--text-primary)",
+                    padding: "10px 20px",
+                    borderRadius: 30,
+                    border: time === t ? "none" : "1px solid rgba(0,0,0,0.08)",
+                    background: time === t ? "var(--accent)" : "#f9fafb",
+                    color: time === t ? "#ffffff" : "var(--text-secondary)",
+                    fontWeight: time === t ? 700 : 500,
+                    boxShadow: time === t ? "0 8px 16px rgba(0,212,170,0.3)" : "none",
                     cursor: "pointer",
                     transition: "all 0.2s",
                   }}
+                  onMouseOver={(e) => { if (time !== t) e.currentTarget.style.border = "1px solid var(--accent)" }}
+                  onMouseOut={(e) => { if (time !== t) e.currentTarget.style.border = "1px solid rgba(0,0,0,0.08)" }}
                 >
                   {t}
                 </button>

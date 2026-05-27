@@ -41,8 +41,15 @@ export default function Login() {
     >
       <Navbar />
       <div
-        className="glass"
-        style={{ width: "100%", maxWidth: 420, padding: "40px 36px" }}
+        style={{ 
+          width: "100%", 
+          maxWidth: 420, 
+          padding: "48px 40px",
+          background: "#ffffff",
+          borderRadius: 24,
+          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(0,0,0,0.05)"
+        }}
       >
         <div style={{ textAlign: "center", marginBottom: 32 }}>
           <Activity

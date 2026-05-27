@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Activity, User, Mail, Lock } from "lucide-react";
+import { Activity, User, Mail, Lock, Stethoscope } from "lucide-react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
@@ -46,8 +46,15 @@ export default function Register() {
     >
       <Navbar />
       <div
-        className="glass"
-        style={{ width: "100%", maxWidth: 440, padding: "40px 36px" }}
+        style={{ 
+          width: "100%", 
+          maxWidth: 440, 
+          padding: "48px 40px",
+          background: "#ffffff",
+          borderRadius: 24,
+          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(0,0,0,0.05)"
+        }}
       >
         <div style={{ textAlign: "center", marginBottom: 32 }}>
           <Activity
@@ -85,28 +92,38 @@ export default function Register() {
             marginBottom: 24,
           }}
         >
-          {["PATIENT", "DOCTOR"].map((r) => (
-            <button
-              key={r}
-              type="button"
-              onClick={() => setForm({ ...form, role: r })}
-              style={{
-                flex: 1,
-                padding: "9px",
-                borderRadius: 7,
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                fontSize: 13,
-                background: form.role === r ? "var(--accent)" : "transparent",
-                color: form.role === r ? "#060910" : "var(--text-secondary)",
-                transition: "all 0.2s",
-              }}
-            >
-              {r === "PATIENT" ? "🧑 Patient" : "👨‍⚕️ Doctor"}
-            </button>
-          ))}
+          {["PATIENT", "DOCTOR"].map((r) => {
+            const isActive = form.role === r;
+            const activeBg = r === "PATIENT" ? "var(--accent)" : "#133c55";
+            return (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setForm({ ...form, role: r })}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: 8,
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  fontSize: 14,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  background: isActive ? activeBg : "transparent",
+                  color: isActive ? "#ffffff" : "var(--text-secondary)",
+                  boxShadow: isActive ? `0 4px 12px ${r === "PATIENT" ? "rgba(0,212,170,0.3)" : "rgba(19,60,85,0.3)"}` : "none",
+                  transition: "all 0.2s",
+                }}
+              >
+                {r === "PATIENT" ? <User size={16} /> : <Stethoscope size={16} />}
+                {r === "PATIENT" ? "Patient" : "Doctor"}
+              </button>
+            );
+          })}
         </div>
 
         <form

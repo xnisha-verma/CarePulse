@@ -157,3 +157,18 @@ body {
   50%       { box-shadow: 0 0 0 8px transparent; }
 }
 .pulse { animation: pulse-glow 2s infinite; }
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-delayed {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
