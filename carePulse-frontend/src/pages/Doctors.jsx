@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
 import DoctorCard from "../components/DoctorCard";
@@ -16,9 +17,10 @@ const SPECIALIZATIONS = [
 ];
 
 export default function Doctors() {
+  const [searchParams] = useSearchParams();
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
-  const [specialization, setSpecialization] = useState("ALL");
+  const [specialization, setSpecialization] = useState(searchParams.get("specialization") || "ALL");
   const [page, setPage] = useState(0);
   const [meta, setMeta] = useState({ totalPages: 0, totalElements: 0 });
   const [error, setError] = useState("");

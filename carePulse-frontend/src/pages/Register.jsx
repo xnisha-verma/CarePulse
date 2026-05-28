@@ -11,6 +11,9 @@ export default function Register() {
     email: "",
     password: "",
     role: "PATIENT",
+    specialization: "CARDIOLOGIST",
+    experience: "",
+    hospitalName: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,11 +40,10 @@ export default function Register() {
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-        background:
-          "radial-gradient(ellipse 70% 70% at 50% 0%, rgba(124,107,255,0.1) 0%, transparent 60%)",
+        padding: "120px 24px 60px",
+        background: "transparent",
       }}
     >
       <Navbar />
@@ -230,6 +232,67 @@ export default function Register() {
               />
             </div>
           </div>
+
+          {form.role === "DOCTOR" && (
+            <>
+              <div>
+                <label style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 6, display: "block" }}>
+                  Specialization
+                </label>
+                <select
+                  className="input"
+                  value={form.specialization}
+                  onChange={(e) => setForm({ ...form, specialization: e.target.value })}
+                  required
+                >
+                  <option value="CARDIOLOGIST">Cardiologist</option>
+                  <option value="DENTIST">Dentist</option>
+                  <option value="NEUROLOGIST">Neurologist</option>
+                  <option value="DERMATOLOGIST">Dermatologist</option>
+                  <option value="PEDIATRICIAN">Pediatrician</option>
+                  <option value="ORTHOPEDIC">Orthopedic</option>
+                </select>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 16 }}>
+                <div>
+                  <label style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 6, display: "block" }}>
+                    Experience (Yrs)
+                  </label>
+                  <input
+                    className="input"
+                    type="number"
+                    min="0"
+                    placeholder="e.g. 5"
+                    value={form.experience}
+                    onChange={(e) => setForm({ ...form, experience: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 6, display: "block" }}>
+                    Hospital Name
+                  </label>
+                  <input
+                    className="input"
+                    list="hospitals"
+                    placeholder="Enter or select..."
+                    value={form.hospitalName}
+                    onChange={(e) => setForm({ ...form, hospitalName: e.target.value })}
+                    required
+                  />
+                  <datalist id="hospitals">
+                    <option value="Apollo Hospital" />
+                    <option value="Fortis Healthcare" />
+                    <option value="AIIMS" />
+                    <option value="Max Healthcare" />
+                    <option value="Medanta" />
+                    <option value="CarePulse Network" />
+                  </datalist>
+                </div>
+              </div>
+            </>
+          )}
 
           {error && (
             <p

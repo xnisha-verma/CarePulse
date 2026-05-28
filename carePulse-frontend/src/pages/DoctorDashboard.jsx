@@ -1,8 +1,27 @@
 import { useEffect, useState } from "react";
-import { CheckCircle, XCircle, Calendar } from "lucide-react";
+import { CheckCircle, XCircle, Calendar as CalendarIcon } from "lucide-react";
 import Navbar from "../components/Navbar";
 import StatusBadge from "../components/StatusBadge";
 import api from "../api/axios";
+
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import format from "date-fns/format";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import getDay from "date-fns/getDay";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import enUS from "date-fns/locale/en-US";
+
+const locales = {
+  "en-US": enUS,
+};
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 import { useAuth } from "../context/AuthContext";
 
@@ -49,7 +68,22 @@ export default function DoctorDashboard() {
     { key: "pending", label: `Pending (${pending.length})` },
     { key: "today", label: `Today's Schedule (${today.length})` },
     { key: "completed", label: `Completed (${completed.length})` },
+    { key: "calendar", label: `Calendar View 📅` },
   ];
+
+  // Map appointments to react-big-calendar events
+  const calendarEvents = appointments.map((appt) => {
+    // appt.appointmentDate is YYYY-MM-DD
+    // appt.appointmentTime is HH:mm:ss
+    const start = new Date(`${appt.appointmentDate}T${appt.appointmentTime}`);
+    const end = new Date(start.getTime() + 30 * 60000); // Assume 30 min slots
+    return {
+      title: `${appt.patientName} - ${appt.status}`,
+      start,
+      end,
+      resource: appt,
+    };
+  });
   const totalPatients = new Set(appointments.map((a) => a.patientEmail)).size;
 
   return (
@@ -274,6 +308,35 @@ export default function DoctorDashboard() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* calendar tab */}
+        {tab === "calendar" && (
+          <div
+            className="glass"
+            style={{
+              padding: 24,
+              background: "#ffffff",
+              borderRadius: 20,
+              boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)",
+              border: "1px solid rgba(0,0,0,0.04)",
+              height: 600
+            }}
+          >
+            <Calendar
+              localizer={localizer}
+              events={calendarEvents}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: "100%", fontFamily: "var(--font-sans)" }}
+              eventPropGetter={(event) => {
+                let backgroundColor = "var(--accent)";
+                if (event.resource.status === "PENDING") backgroundColor = "#f59e0b";
+                if (event.resource.status === "REJECTED" || event.resource.status === "CANCELLED") backgroundColor = "var(--danger)";
+                return { style: { backgroundColor, border: "none", borderRadius: "8px", fontWeight: 600, fontSize: "12px" } };
+              }}
+            />
           </div>
         )}
       </div>

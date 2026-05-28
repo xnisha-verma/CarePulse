@@ -28,4 +28,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     // Double-booking check
     boolean existsByDoctor_IdAndAppointmentDateAndAppointmentTimeAndStatusNot(
             Long doctorId, LocalDate date, LocalTime time, AppointmentStatus excludedStatus);
+
+    // Global queries for scheduling
+    List<Appointment> findByAppointmentDateAndStatus(LocalDate date, AppointmentStatus status);
 }

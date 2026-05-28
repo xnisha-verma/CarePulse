@@ -32,11 +32,10 @@ export default function Login() {
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-        background:
-          "radial-gradient(ellipse 70% 70% at 50% 0%, rgba(0,212,170,0.1) 0%, transparent 60%)",
+        padding: "120px 24px 60px",
+        background: "transparent",
       }}
     >
       <Navbar />

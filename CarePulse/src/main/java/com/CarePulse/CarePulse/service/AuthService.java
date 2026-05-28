@@ -68,9 +68,16 @@ public class AuthService {
         if (role == User.Role.DOCTOR) {
             Doctor doctor = new Doctor();
             doctor.setUser(user);
-            doctor.setSpecialization(Specialization.DERMATOLOGIST);
-            doctor.setExperience(1);
-            doctor.setHospitalName("CarePulse Network");
+            
+            // Set provided values or default if missing
+            try {
+                doctor.setSpecialization(req.getSpecialization() != null ? Specialization.valueOf(req.getSpecialization().toUpperCase()) : Specialization.CARDIOLOGIST);
+            } catch (Exception e) {
+                doctor.setSpecialization(Specialization.CARDIOLOGIST);
+            }
+            
+            doctor.setExperience(req.getExperience() != null ? req.getExperience() : 1);
+            doctor.setHospitalName(req.getHospitalName() != null && !req.getHospitalName().isBlank() ? req.getHospitalName() : "CarePulse Network");
             doctor.setAvailableStartTime(LocalTime.of(9, 0));
             doctor.setAvailableEndTime(LocalTime.of(17, 0));
             doctor.setProfileImage("https://ui-avatars.com/api/?name=" + req.getName().replace(" ", "+")

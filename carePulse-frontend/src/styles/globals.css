@@ -25,9 +25,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--bg-primary);
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, #ffffff 0%, transparent 60%);
+  /* User requested gradient */
+  background: linear-gradient(to bottom, #ebf4fa 0%, #ffffff 40%, #dff2eb 100%);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 15px;

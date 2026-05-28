@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SymptomWizard from "../components/SymptomWizard";
 
 const stats = [
   { value: "1,200+", label: "Appointments Booked" },
@@ -45,22 +46,21 @@ export default function Landing() {
     <div style={{ background: "var(--bg-primary)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
-      {/* Hero */}
+      {/* Hero + Stats (one seamless section) */}
       <section
         style={{
-          minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "160px 24px 80px",
-          background: "radial-gradient(ellipse 80% 50% at 50% -20%, #ffffff 0%, transparent 60%)",
+          padding: "120px 24px 60px",
           position: "relative",
           overflow: "hidden"
         }}
       >
         {/* Floating Cards (MediFlow inspired) */}
-        <div className="floating" style={{ position: "absolute", top: "25%", left: "10%", background: "#ffffff", padding: "16px 24px", borderRadius: 16, boxShadow: "0 20px 40px rgba(19, 60, 85, 0.08)", border: "1px solid rgba(19, 60, 85, 0.05)", display: "flex", alignItems: "center", gap: 12, zIndex: 1 }}>
+        <div className="floating" style={{ position: "absolute", top: "18%", left: "10%", background: "#ffffff", padding: "16px 24px", borderRadius: 16, boxShadow: "0 20px 40px rgba(19, 60, 85, 0.08)", border: "1px solid rgba(19, 60, 85, 0.05)", display: "flex", alignItems: "center", gap: 12, zIndex: 1 }}>
           <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#e0f2fe", display: "flex", alignItems: "center", justifyContent: "center", color: "#0284c7" }}>
             <Users size={20} />
           </div>
@@ -70,7 +70,7 @@ export default function Landing() {
           </div>
         </div>
         
-        <div className="floating-delayed" style={{ position: "absolute", bottom: "30%", right: "10%", background: "#ffffff", padding: "16px 24px", borderRadius: 16, boxShadow: "0 20px 40px rgba(19, 60, 85, 0.08)", border: "1px solid rgba(19, 60, 85, 0.05)", display: "flex", alignItems: "center", gap: 12, zIndex: 1 }}>
+        <div className="floating-delayed" style={{ position: "absolute", top: "25%", right: "10%", background: "#ffffff", padding: "16px 24px", borderRadius: 16, boxShadow: "0 20px 40px rgba(19, 60, 85, 0.08)", border: "1px solid rgba(19, 60, 85, 0.05)", display: "flex", alignItems: "center", gap: 12, zIndex: 1 }}>
           <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", color: "#16a34a" }}>
             <Activity size={20} />
           </div>
@@ -170,46 +170,59 @@ export default function Landing() {
             )}
           </div>
         </div>
+
+        {/* Stats - inline within the same section */}
+        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", paddingTop: 60 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: 16,
+            }}
+          >
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="glass"
+                style={{ padding: "32px 24px", textAlign: "center" }}
+              >
+                <p
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 36,
+                    fontWeight: 800,
+                    color: "var(--text-primary)",
+                    letterSpacing: "-0.02em"
+                  }}
+                >
+                  {s.value}
+                </p>
+                <p
+                  style={{
+                    color: "var(--accent)",
+                    fontWeight: 600,
+                    fontSize: 14,
+                    marginTop: 4,
+                  }}
+                >
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Stats */}
-      <section style={{ padding: "0 24px 100px", maxWidth: 1100, margin: "0 auto", width: "100%" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: 16,
-          }}
-        >
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="glass"
-              style={{ padding: "32px 24px", textAlign: "center" }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 36,
-                  fontWeight: 800,
-                  color: "var(--text-primary)",
-                  letterSpacing: "-0.02em"
-                }}
-              >
-                {s.value}
-              </p>
-              <p
-                style={{
-                  color: "var(--accent)",
-                  fontWeight: 600,
-                  fontSize: 14,
-                  marginTop: 4,
-                }}
-              >
-                {s.label}
-              </p>
-            </div>
-          ))}
+      {/* Symptom Checker Wizard */}
+      <section id="symptoms" style={{ padding: "60px 24px", position: "relative", overflow: "hidden", background: "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 30%, #f0f9ff 70%, #eff6ff 100%)", borderTop: "1px solid rgba(16, 185, 129, 0.1)", borderBottom: "1px solid rgba(16, 185, 129, 0.1)", width: "100%" }}>
+        {/* Decorative mesh dots */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: "radial-gradient(circle, rgba(16,185,129,0.06) 1px, transparent 1px)", backgroundSize: "24px 24px", zIndex: 0 }} />
+        {/* Soft Glowing Orbs */}
+        <div style={{ position: "absolute", top: "-15%", right: "-5%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)", borderRadius: "50%", zIndex: 0 }} />
+        <div style={{ position: "absolute", bottom: "-15%", left: "-5%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%)", borderRadius: "50%", zIndex: 0 }} />
+        
+        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
+          <SymptomWizard />
         </div>
       </section>
 
@@ -217,7 +230,7 @@ export default function Landing() {
       <section
         id="features"
         style={{
-          padding: "80px 24px",
+          padding: "60px 24px",
           background: "#0b1120", /* Deep slate/blue like MediFlow */
           borderTop: "1px solid rgba(255,255,255,0.05)",
           borderBottom: "1px solid rgba(255,255,255,0.05)",
@@ -302,8 +315,8 @@ export default function Landing() {
       {/* AI Chatbot Feature Highlights */}
       <section
         style={{
-          padding: "120px 24px",
-          background: "radial-gradient(ellipse at bottom right, rgba(79, 70, 229, 0.05), transparent 50%), var(--bg-primary)",
+          padding: "80px 24px",
+          background: "radial-gradient(ellipse at bottom right, rgba(79, 70, 229, 0.05), transparent 50%), transparent",
           display: "flex",
           justifyContent: "center"
         }}

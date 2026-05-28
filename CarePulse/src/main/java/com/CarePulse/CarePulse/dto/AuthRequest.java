@@ -12,4 +12,9 @@ public class AuthRequest {
     private String email;
     private String password;
     private String role; // "PATIENT" or "DOCTOR"
+    
+    // Doctor specific fields
+    private String specialization;
+    private Integer experience;
+    private String hospitalName;
 }

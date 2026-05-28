@@ -17,6 +17,7 @@ export default function Navbar() {
   // Center navigation links
   const navLinks = [
     { name: "Home", href: "/" },
+    { name: "Symptoms", href: "/#symptoms" },
     { name: "Features", href: "/#features" },
     { name: "Doctors", href: "/doctors" }
   ];
