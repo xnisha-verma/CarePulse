@@ -55,9 +55,20 @@ body {
   transition: all 0.3s ease;
 }
 
-/* gradient text - changed to solid dark teal */
+/* gradient text - animated vibrant gradient */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .gradient-text {
-  color: #133c55;
+  background: linear-gradient(135deg, #0ea5e9, #8b5cf6, #ec4899, #0ea5e9);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
 }
 
 /* accent button */

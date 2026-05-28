@@ -214,12 +214,17 @@ export default function Landing() {
       </section>
 
       {/* Symptom Checker Wizard */}
-      <section id="symptoms" style={{ padding: "60px 24px", position: "relative", overflow: "hidden", background: "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 30%, #f0f9ff 70%, #eff6ff 100%)", borderTop: "1px solid rgba(16, 185, 129, 0.1)", borderBottom: "1px solid rgba(16, 185, 129, 0.1)", width: "100%" }}>
-        {/* Decorative mesh dots */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: "radial-gradient(circle, rgba(16,185,129,0.06) 1px, transparent 1px)", backgroundSize: "24px 24px", zIndex: 0 }} />
-        {/* Soft Glowing Orbs */}
-        <div style={{ position: "absolute", top: "-15%", right: "-5%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)", borderRadius: "50%", zIndex: 0 }} />
-        <div style={{ position: "absolute", bottom: "-15%", left: "-5%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%)", borderRadius: "50%", zIndex: 0 }} />
+      <section id="symptoms" style={{
+        padding: "80px 24px",
+        position: "relative",
+        overflow: "hidden",
+        background: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)",
+        width: "100%"
+      }}>
+        {/* Top fade border */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.3), rgba(139,92,246,0.3), transparent)" }} />
+        {/* Bottom fade border */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.3), rgba(139,92,246,0.3), transparent)" }} />
         
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <SymptomWizard />
@@ -391,8 +396,8 @@ export default function Landing() {
       {/* CTA */}
       <section
         style={{
-          padding: "120px 24px",
-          background: "var(--bg-secondary)",
+          padding: "80px 24px",
+          background: "transparent",
           display: "flex",
           justifyContent: "center"
         }}
