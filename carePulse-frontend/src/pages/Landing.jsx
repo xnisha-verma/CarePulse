@@ -319,6 +319,7 @@ export default function Landing() {
       </section>
       {/* AI Chatbot Feature Highlights */}
       <section
+        id="ai"
         style={{
           padding: "80px 24px",
           background: "radial-gradient(ellipse at bottom right, rgba(79, 70, 229, 0.05), transparent 50%), transparent",

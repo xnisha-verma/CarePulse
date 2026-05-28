@@ -19,7 +19,8 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Symptoms", href: "/#symptoms" },
     { name: "Features", href: "/#features" },
-    { name: "Doctors", href: "/doctors" }
+    { name: "Doctors", href: "/doctors" },
+    { name: "CarePulse AI", href: "/#ai", isAI: true }
   ];
 
   return (
@@ -71,15 +72,24 @@ export default function Navbar() {
             key={link.name}
             href={link.href}
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
               textDecoration: "none",
-              color: "var(--text-secondary)",
+              color: link.isAI ? "#4f46e5" : "var(--text-secondary)",
               fontWeight: 600,
               fontSize: 15,
               transition: "color 0.2s"
             }}
-            onMouseOver={(e) => e.target.style.color = "var(--accent)"}
-            onMouseOut={(e) => e.target.style.color = "var(--text-secondary)"}
+            onMouseOver={(e) => e.target.style.color = link.isAI ? "#6366f1" : "var(--accent)"}
+            onMouseOut={(e) => e.target.style.color = link.isAI ? "#4f46e5" : "var(--text-secondary)"}
           >
+            {link.isAI && (
+              <div className="pulse-dot">
+                <div className="pulse-dot-inner"></div>
+                <div className="pulse-dot-core"></div>
+              </div>
+            )}
             {link.name}
           </a>
         ))}
