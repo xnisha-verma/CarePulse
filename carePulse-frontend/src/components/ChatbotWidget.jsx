@@ -156,27 +156,77 @@ export default function ChatbotWidget() {
         </div>
       )}
 
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          width: 64,
-          height: 64,
-          borderRadius: "50%",
-          background: "linear-gradient(135deg, #4f46e5, #ec4899)",
-          color: "#ffffff",
-          border: "none",
-          boxShadow: "0 8px 24px rgba(236, 72, 153, 0.4)",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-          transform: isOpen ? "scale(0.85) rotate(90deg)" : "scale(1) rotate(0deg)"
-        }}
-      >
-        {isOpen ? <X size={30} /> : <MessageSquare size={30} />}
-      </button>
+      {/* Toggle Button Container */}
+      <div style={{ position: "relative" }}>
+        {!isOpen && (
+          <div
+            style={{
+              position: "absolute",
+              right: "calc(100% + 16px)",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "#ffffff",
+              padding: "10px 18px",
+              borderRadius: "24px",
+              boxShadow: "0 8px 24px rgba(79, 70, 229, 0.15)",
+              color: "#4f46e5",
+              fontWeight: 700,
+              fontSize: 14,
+              whiteSpace: "nowrap",
+              animation: "float 3s ease-in-out infinite",
+              border: "1px solid rgba(79, 70, 229, 0.15)",
+              pointerEvents: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px"
+            }}
+          >
+            CarePulse AI
+            <div className="pulse-dot" style={{ position: "relative", marginLeft: "4px" }}>
+                <div className="pulse-dot-inner" style={{ animation: "ai-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite" }}></div>
+                <div className="pulse-dot-core"></div>
+            </div>
+            {/* Triangle pointer */}
+            <div
+              style={{
+                position: "absolute",
+                right: -6,
+                top: "50%",
+                marginTop: -6,
+                width: 12,
+                height: 12,
+                background: "#ffffff",
+                borderTop: "1px solid rgba(79, 70, 229, 0.15)",
+                borderRight: "1px solid rgba(79, 70, 229, 0.15)",
+                transform: "rotate(45deg)",
+                zIndex: -1,
+                borderBottomLeftRadius: 12 // Smooths out the inside part
+              }}
+            ></div>
+          </div>
+        )}
+
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #4f46e5, #ec4899)",
+            color: "#ffffff",
+            border: "none",
+            boxShadow: "0 8px 24px rgba(236, 72, 153, 0.4)",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+            transform: isOpen ? "scale(0.85) rotate(90deg)" : "scale(1) rotate(0deg)"
+          }}
+        >
+          {isOpen ? <X size={30} /> : <MessageSquare size={30} />}
+        </button>
+      </div>
     </div>
   );
 }

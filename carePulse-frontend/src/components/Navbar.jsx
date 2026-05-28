@@ -84,12 +84,6 @@ export default function Navbar() {
             onMouseOver={(e) => e.target.style.color = link.isAI ? "#6366f1" : "var(--accent)"}
             onMouseOut={(e) => e.target.style.color = link.isAI ? "#4f46e5" : "var(--text-secondary)"}
           >
-            {link.isAI && (
-              <div className="pulse-dot">
-                <div className="pulse-dot-inner"></div>
-                <div className="pulse-dot-core"></div>
-              </div>
-            )}
             {link.name}
           </a>
         ))}
