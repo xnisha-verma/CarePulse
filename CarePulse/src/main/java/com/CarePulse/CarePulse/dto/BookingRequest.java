@@ -16,6 +16,7 @@ public class BookingRequest {
     private Long doctorId;
 
     @NotNull(message = "appointmentDate is required")
+    @jakarta.validation.constraints.FutureOrPresent(message = "Appointment date cannot be in the past")
     private LocalDate appointmentDate;
 
     @NotNull(message = "appointmentTime is required")

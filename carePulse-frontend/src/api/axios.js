@@ -13,6 +13,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error?.response?.status === 401 || error?.response?.status === 403) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      if (window.location.pathname !== "/login" && window.location.pathname !== "/register") {
+        window.location.href = "/login";
+      }
+    }
     const message =
       error?.response?.data?.error ||
       error?.response?.data?.message ||

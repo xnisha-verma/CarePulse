@@ -20,8 +20,8 @@ export default function Login() {
       const res = await api.post("/auth/login", form);
       login(res.data.token, res.data.role, res.data.name, res.data.email);
       navigate(res.data.role === "DOCTOR" ? "/doctor-dashboard" : "/dashboard");
-    } catch {
-      setError("Invalid email or password");
+    } catch (e) {
+      setError(e.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }

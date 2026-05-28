@@ -28,8 +28,8 @@ export default function Register() {
       const res = await api.post("/auth/register", form);
       login(res.data.token, res.data.role, res.data.name, res.data.email);
       navigate(res.data.role === "DOCTOR" ? "/doctor-dashboard" : "/dashboard");
-    } catch {
-      setError("Registration failed. Email may already be in use.");
+    } catch (e) {
+      setError(e.message || "Registration failed. Email may already be in use.");
     } finally {
       setLoading(false);
     }
