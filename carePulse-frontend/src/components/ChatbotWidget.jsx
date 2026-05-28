@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send } from "lucide-react";
+import api from "../api/axios";
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,15 +29,8 @@ export default function ChatbotWidget() {
     setIsLoading(true);
 
     try {
-      // In a real scenario you would point this to your actual API URL config
-      const response = await fetch("http://localhost:8080/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg }),
-      });
-      
-      const data = await response.json();
-      setMessages(prev => [...prev, { role: "bot", content: data.reply }]);
+      const response = await api.post("/chat", { message: userMsg });
+      setMessages(prev => [...prev, { role: "bot", content: response.data.reply }]);
     } catch (error) {
       setMessages(prev => [...prev, { role: "bot", content: "Sorry, I'm having trouble connecting right now." }]);
     } finally {

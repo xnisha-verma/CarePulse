@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// @Component
+@Component
 public class DataSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -57,7 +57,21 @@ public class DataSeeder implements CommandLineRunner {
             {"Dr. Rohit Singh",      "rohit.singh@carepulse.in",      "NEUROLOGIST",    "Max Healthcare Saket",         "14", "9",  "17"},
             {"Dr. Kavitha Pillai",   "kavitha.pillai@carepulse.in",   "DERMATOLOGIST",  "Medanta Lucknow",              "11", "10", "18"},
             {"Dr. Smriti Khanna",    "smriti.khanna@carepulse.in",    "GYNECOLOGIST",   "Apollo Cradle Delhi",          "16", "9",  "16"},
-            {"Dr. Ramesh Patel",     "ramesh.patel@carepulse.in",     "GENERAL_PHYSICIAN","City Care Hospital",         "20", "8",  "14"}
+            {"Dr. Neha Kapoor",      "neha.kapoor@carepulse.in",      "PEDIATRICIAN",   "Rainbow Children's Hospital",  "10", "10", "18"},
+            {"Dr. Suresh Menon",     "suresh.menon@carepulse.in",     "ORTHOPEDIC",     "Manipal Hospital",             "20", "8",  "16"},
+            {"Dr. Aditi Sharma",     "aditi.sharma@carepulse.in",     "GYNECOLOGIST",   "Cloudnine Hospital",           "14", "9",  "17"},
+            {"Dr. Rohan Desai",      "rohan.desai@carepulse.in",      "GENERAL_PHYSICIAN","KIMS Hospital",              "5",  "8",  "20"},
+            {"Dr. Nisha Verma",      "nisha.verma@carepulse.in",      "CARDIOLOGIST",   "Narayana Hrudayalaya",         "22", "10", "16"},
+            {"Dr. Alok Banerjee",    "alok.banerjee@carepulse.in",    "DENTIST",        "Clove Dental Care",            "8",  "9",  "19"},
+            {"Dr. Kiran Joshi",      "kiran.joshi@carepulse.in",      "NEUROLOGIST",    "Fortis Escorts",               "17", "9",  "15"},
+            {"Dr. Meera Patel",      "meera.patel@carepulse.in",      "DERMATOLOGIST",  "Kaya Skin Clinic",             "9",  "11", "19"},
+            {"Dr. Rajat Yadav",      "rajat.yadav@carepulse.in",      "PEDIATRICIAN",   "Apollo Children's",            "12", "8",  "14"},
+            {"Dr. Sneha Desai",      "sneha.desai@carepulse.in",      "ORTHOPEDIC",     "Hosmat Hospital",              "19", "10", "18"},
+            {"Dr. Anil Kumar",       "anil.kumar@carepulse.in",       "GYNECOLOGIST",   "Motherhood Hospital",          "25", "9",  "15"},
+            {"Dr. Poonam Singh",     "poonam.singh@carepulse.in",     "GENERAL_PHYSICIAN","Columbia Asia",              "7",  "10", "20"},
+            {"Dr. Vivek Chawla",     "vivek.chawla@carepulse.in",     "CARDIOLOGIST",   "Asian Heart Institute",        "30", "9",  "14"},
+            {"Dr. Swati Sen",        "swati.sen@carepulse.in",        "DENTIST",        "Smile Care Clinic",            "4",  "10", "18"},
+            {"Dr. Manish Tiwari",    "manish.tiwari@carepulse.in",    "NEUROLOGIST",    "Global Hospitals",             "15", "9",  "17"}
         };
 
         List<Doctor> doctors = new ArrayList<>();
@@ -82,10 +96,7 @@ public class DataSeeder implements CommandLineRunner {
     // ── PATIENT SEEDING ─────────────────────────────────────────
 
     private void seedPatients() {
-        // Check if patients already exist (doctors already added users, so filter by role)
-        long patientCount = userRepository.findAll().stream()
-                .filter(u -> u.getRole() == User.Role.PATIENT).count();
-        if (patientCount > 0) return;
+        if (userRepository.findByEmail("rahul.sharma@gmail.com").isPresent()) return;
 
         String[][] patientData = {
             {"Rahul Sharma",    "rahul.sharma@gmail.com"},
@@ -96,10 +107,12 @@ public class DataSeeder implements CommandLineRunner {
         };
 
         for (String[] p : patientData) {
-            createUser(p[0], p[1], "Patient@123", User.Role.PATIENT);
+            if (userRepository.findByEmail(p[1]).isEmpty()) {
+                createUser(p[0], p[1], "Patient@123", User.Role.PATIENT);
+            }
         }
 
-        System.out.println("[DataSeeder] ✅ Seeded " + patientData.length + " patients.");
+        System.out.println("[DataSeeder] ✅ Seeded dummy patients.");
     }
 
     // ── APPOINTMENT SEEDING ─────────────────────────────────────
@@ -107,14 +120,16 @@ public class DataSeeder implements CommandLineRunner {
     private void seedAppointments() {
         if (appointmentRepository.count() > 0) return;
 
-        List<User> patients = userRepository.findAll().stream()
-                .filter(u -> u.getRole() == User.Role.PATIENT).toList();
         List<Doctor> doctors = doctorRepository.findAll();
+        if (doctors.isEmpty()) return;
 
-        if (patients.isEmpty() || doctors.isEmpty()) {
-            System.out.println("[DataSeeder] ⚠️ Skipping appointments — no patients or doctors.");
-            return;
+        String[] dummyEmails = {"rahul.sharma@gmail.com", "priyanka.singh@gmail.com", "amit.kumar@gmail.com", "sneha.reddy@gmail.com", "mohit.verma@gmail.com"};
+        List<User> dummyPatients = new ArrayList<>();
+        for (String email : dummyEmails) {
+            userRepository.findByEmail(email).ifPresent(dummyPatients::add);
         }
+
+        if (dummyPatients.isEmpty()) return;
 
         AppointmentStatus[] statuses = AppointmentStatus.values();
         String[] notes = {
@@ -132,7 +147,7 @@ public class DataSeeder implements CommandLineRunner {
 
         List<Appointment> appointments = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            User patient = patients.get(i % patients.size());
+            User patient = dummyPatients.get(i % dummyPatients.size());
             Doctor doctor = doctors.get(i % doctors.size());
 
             Appointment appt = new Appointment();
