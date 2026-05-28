@@ -44,6 +44,25 @@ public class DoctorService {
         return toResponse(doctor);
     }
 
+    public DoctorResponse getMyProfile(String email) {
+        Doctor doctor = doctorRepo.findByUser_Email(email)
+                .orElseThrow(() -> new RuntimeException("Doctor not found for this user"));
+        return toResponse(doctor);
+    }
+
+    public DoctorResponse updateProfile(String email, com.CarePulse.CarePulse.dto.DoctorProfileUpdateRequest req) {
+        Doctor doctor = doctorRepo.findByUser_Email(email)
+                .orElseThrow(() -> new RuntimeException("Doctor not found for this user"));
+
+        if (req.getHospitalName() != null) doctor.setHospitalName(req.getHospitalName());
+        if (req.getExperience() != null) doctor.setExperience(req.getExperience());
+        if (req.getAvailableStartTime() != null) doctor.setAvailableStartTime(req.getAvailableStartTime());
+        if (req.getAvailableEndTime() != null) doctor.setAvailableEndTime(req.getAvailableEndTime());
+        if (req.getSpecialization() != null) doctor.setSpecialization(req.getSpecialization());
+
+        return toResponse(doctorRepo.save(doctor));
+    }
+
     private DoctorResponse toResponse(Doctor doctor) {
         return new DoctorResponse(
                 doctor.getId(),

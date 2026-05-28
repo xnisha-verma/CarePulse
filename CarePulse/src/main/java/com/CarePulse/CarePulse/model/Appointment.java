@@ -35,4 +35,9 @@ public class Appointment {
 
     private String notes;
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(columnDefinition = "TEXT")
+    private String prescription;
+
+    private String medicalHistoryLink;
 }

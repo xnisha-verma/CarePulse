@@ -24,4 +24,6 @@ public class AppointmentResponse {
     private AppointmentStatus status;
     private String notes;
     private LocalDateTime createdAt;
+    private String prescription;
+    private String medicalHistoryLink;
 }

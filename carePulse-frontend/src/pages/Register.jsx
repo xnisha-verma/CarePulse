@@ -251,6 +251,8 @@ export default function Register() {
                   <option value="DERMATOLOGIST">Dermatologist</option>
                   <option value="PEDIATRICIAN">Pediatrician</option>
                   <option value="ORTHOPEDIC">Orthopedic</option>
+                  <option value="GYNECOLOGIST">Gynecologist</option>
+                  <option value="GENERAL_PHYSICIAN">General Physician</option>
                 </select>
               </div>
 

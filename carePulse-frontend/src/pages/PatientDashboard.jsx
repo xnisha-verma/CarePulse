@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User, FileText, X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import StatusBadge from "../components/StatusBadge";
 import api from "../api/axios";
@@ -13,6 +13,7 @@ export default function PatientDashboard() {
   const [past, setPast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [rxView, setRxView] = useState(null); // appointment to view prescription
 
   const loadData = () => {
     setLoading(true);
@@ -242,17 +243,74 @@ export default function PatientDashboard() {
             ))}
             <h3 style={{ marginTop: 16, marginBottom: 6 }}>Past</h3>
             {past.map((a) => (
-              <div key={a.id} style={{ padding: "16px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)" }}>
-                <p style={{ fontWeight: 500 }}>{a.doctorName}</p>
-                <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
-                  {a.specialization} · {a.appointmentDate} at{" "}
-                  {a.appointmentTime?.slice(0, 5)}
-                </p>
-                <div style={{ marginTop: 8 }}>
-                  <StatusBadge status={a.status} />
+              <div key={a.id} style={{ padding: "20px 24px", background: "#ffffff", borderRadius: 20, boxShadow: "0 12px 30px -10px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, transition: "all 0.2s" }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 16px 36px -10px rgba(0,0,0,0.12)" }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.08)" }}
+              >
+                <div>
+                  <p style={{ fontWeight: 500 }}>{a.doctorName}</p>
+                  <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
+                    {a.specialization} · {a.appointmentDate} at{" "}
+                    {a.appointmentTime?.slice(0, 5)}
+                  </p>
+                  <div style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 8 }}>
+                    <StatusBadge status={a.status} />
+                    {a.prescription && <span style={{ fontSize: 11, color: "#4f46e5", fontWeight: 600, background: "rgba(79,70,229,0.08)", padding: "2px 8px", borderRadius: 50 }}>📝 Rx Available</span>}
+                  </div>
                 </div>
+                {a.prescription && (
+                  <button
+                    onClick={() => setRxView(a)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 6,
+                      padding: "8px 18px", borderRadius: 10,
+                      border: "1px solid rgba(79,70,229,0.3)",
+                      background: "rgba(79,70,229,0.08)",
+                      color: "#4f46e5",
+                      cursor: "pointer", fontSize: 13, fontWeight: 600,
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    <FileText size={14} /> View Prescription
+                  </button>
+                )}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Prescription View Modal */}
+        {rxView && (
+          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: 24 }}
+            onClick={() => setRxView(null)}
+          >
+            <div
+              style={{ background: "#ffffff", borderRadius: 24, padding: 32, maxWidth: 560, width: "100%", boxShadow: "0 30px 60px rgba(0,0,0,0.15)", position: "relative" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button onClick={() => setRxView(null)} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}><X size={20} /></button>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <FileText size={20} color="#ffffff" />
+                </div>
+                <div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "var(--text-primary)" }}>Prescription</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>By {rxView.doctorName} · {rxView.appointmentDate}</p>
+                </div>
+              </div>
+              <div style={{
+                background: "#f9fafb", padding: 20, borderRadius: 14,
+                border: "1px solid var(--border)",
+                fontSize: 14, lineHeight: 1.8, color: "var(--text-primary)",
+                whiteSpace: "pre-wrap", fontFamily: "var(--font-body)",
+                maxHeight: 300, overflowY: "auto"
+              }}>
+                {rxView.prescription}
+              </div>
+              <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
+                <button onClick={() => setRxView(null)} className="btn-accent" style={{ padding: "10px 24px" }}>Close</button>
+              </div>
+            </div>
           </div>
         )}
       </div>

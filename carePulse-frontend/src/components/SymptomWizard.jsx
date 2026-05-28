@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Brain, Heart, Bone, Baby, User, Activity, ArrowRight, Stethoscope } from "lucide-react";
+import { Brain, Heart, Bone, Baby, User, Activity, ArrowRight, Stethoscope, Syringe, ClipboardPlus } from "lucide-react";
 
 const symptoms = [
   { id: "NEUROLOGIST", label: "Head / Brain", icon: <Brain size={28} />, color: "#8b5cf6", bg: "#f5f3ff" },
@@ -9,6 +9,8 @@ const symptoms = [
   { id: "PEDIATRICIAN", label: "Child Health", icon: <Baby size={28} />, color: "#10b981", bg: "#ecfdf5" },
   { id: "DERMATOLOGIST", label: "Skin Issues", icon: <User size={28} />, color: "#ec4899", bg: "#fdf2f8" },
   { id: "DENTIST", label: "Tooth / Gum", icon: <Activity size={28} />, color: "#0ea5e9", bg: "#f0f9ff" },
+  { id: "GYNECOLOGIST", label: "Women's Health", icon: <ClipboardPlus size={28} />, color: "#d946ef", bg: "#fdf4ff" },
+  { id: "GENERAL_PHYSICIAN", label: "Fever / General", icon: <Syringe size={28} />, color: "#06b6d4", bg: "#ecfeff" },
 ];
 
 export default function SymptomWizard() {
@@ -27,7 +29,7 @@ export default function SymptomWizard() {
       </div>
 
       {/* Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px", marginBottom: "32px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px", marginBottom: "32px" }}>
         {symptoms.map((s) => (
           <button
             key={s.id}

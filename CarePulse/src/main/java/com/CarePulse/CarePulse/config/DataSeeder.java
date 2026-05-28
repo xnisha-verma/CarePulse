@@ -56,6 +56,8 @@ public class DataSeeder implements CommandLineRunner {
             {"Dr. Deepika Reddy",    "deepika.reddy@carepulse.in",    "DENTIST",        "AIIMS Hyderabad",              "6",  "11", "19"},
             {"Dr. Rohit Singh",      "rohit.singh@carepulse.in",      "NEUROLOGIST",    "Max Healthcare Saket",         "14", "9",  "17"},
             {"Dr. Kavitha Pillai",   "kavitha.pillai@carepulse.in",   "DERMATOLOGIST",  "Medanta Lucknow",              "11", "10", "18"},
+            {"Dr. Smriti Khanna",    "smriti.khanna@carepulse.in",    "GYNECOLOGIST",   "Apollo Cradle Delhi",          "16", "9",  "16"},
+            {"Dr. Ramesh Patel",     "ramesh.patel@carepulse.in",     "GENERAL_PHYSICIAN","City Care Hospital",         "20", "8",  "14"}
         };
 
         List<Doctor> doctors = new ArrayList<>();

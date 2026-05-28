@@ -48,6 +48,7 @@ public class AppointmentService {
         appt.setAppointmentDate(req.getAppointmentDate());
         appt.setAppointmentTime(req.getAppointmentTime());
         appt.setNotes(req.getNotes());
+        appt.setMedicalHistoryLink(req.getMedicalHistoryLink());
         appt.setStatus(AppointmentStatus.PENDING);
 
         return toResponse(apptRepo.save(appt));
@@ -113,6 +114,23 @@ public class AppointmentService {
         return toResponse(apptRepo.save(appt));
     }
 
+    @Transactional
+    public AppointmentResponse addPrescription(Long apptId, String prescription, String doctorEmail) {
+        Appointment appt = apptRepo.findById(apptId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        if (!appt.getDoctor().getUser().getEmail().equals(doctorEmail)) {
+            throw new AccessDeniedException("You can only write prescriptions for your own appointments");
+        }
+
+        if (appt.getStatus() != AppointmentStatus.COMPLETED) {
+            throw new RuntimeException("Prescriptions can only be added to completed appointments");
+        }
+
+        appt.setPrescription(prescription);
+        return toResponse(apptRepo.save(appt));
+    }
+
     private AppointmentResponse toResponse(Appointment appt) {
         Doctor doctor = appt.getDoctor();
         return new AppointmentResponse(
@@ -126,7 +144,9 @@ public class AppointmentService {
                 appt.getAppointmentTime(),
                 appt.getStatus(),
                 appt.getNotes(),
-                appt.getCreatedAt()
+                appt.getCreatedAt(),
+                appt.getPrescription(),
+                appt.getMedicalHistoryLink()
         );
     }
 }

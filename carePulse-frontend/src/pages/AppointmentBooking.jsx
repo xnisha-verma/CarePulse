@@ -11,6 +11,7 @@ export default function AppointmentBooking() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
+  const [medicalHistoryLink, setMedicalHistoryLink] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ export default function AppointmentBooking() {
         appointmentDate: date,
         appointmentTime: time + ":00",
         notes,
+        medicalHistoryLink,
       });
       setSuccess("Appointment booked successfully! Redirecting...");
       setTimeout(() => {
@@ -127,6 +129,18 @@ export default function AppointmentBooking() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Add notes for the doctor..."
+          />
+
+          {/* Medical History Link */}
+          <label style={{ display: "block", marginTop: 18, marginBottom: 8, color: "var(--text-secondary)" }}>
+            Medical History Link (optional)
+          </label>
+          <input
+            type="url"
+            className="input"
+            value={medicalHistoryLink}
+            onChange={(e) => setMedicalHistoryLink(e.target.value)}
+            placeholder="e.g. Google Drive/Dropbox link to past records..."
           />
 
           {error && <p style={{ color: "var(--danger)", marginTop: 12 }}>{error}</p>}

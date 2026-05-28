@@ -22,4 +22,5 @@ public class BookingRequest {
     private LocalTime appointmentTime;
 
     private String notes;
+    private String medicalHistoryLink;
 }

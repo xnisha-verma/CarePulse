@@ -6,5 +6,7 @@ public enum Specialization {
     NEUROLOGIST,
     DERMATOLOGIST,
     PEDIATRICIAN,
-    ORTHOPEDIC
+    ORTHOPEDIC,
+    GYNECOLOGIST,
+    GENERAL_PHYSICIAN
 }

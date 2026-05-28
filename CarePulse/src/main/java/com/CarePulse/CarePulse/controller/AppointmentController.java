@@ -77,4 +77,16 @@ public class AppointmentController {
     public ResponseEntity<?> today(Authentication auth) {
         return ResponseEntity.ok(apptService.getToday(auth.getName()));
     }
+
+    @PutMapping("/{id}/prescription")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<?> addPrescription(@PathVariable Long id,
+                                              @RequestBody java.util.Map<String, String> body,
+                                              Authentication auth) {
+        String prescription = body.get("prescription");
+        if (prescription == null || prescription.isBlank()) {
+            return ResponseEntity.badRequest().body(java.util.Map.of("error", "Prescription text is required"));
+        }
+        return ResponseEntity.ok(apptService.addPrescription(id, prescription, auth.getName()));
+    }
 }

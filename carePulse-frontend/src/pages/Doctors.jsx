@@ -14,6 +14,8 @@ const SPECIALIZATIONS = [
   "DERMATOLOGIST",
   "PEDIATRICIAN",
   "ORTHOPEDIC",
+  "GYNECOLOGIST",
+  "GENERAL_PHYSICIAN",
 ];
 
 export default function Doctors() {
