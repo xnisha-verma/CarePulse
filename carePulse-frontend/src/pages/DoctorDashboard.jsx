@@ -66,7 +66,7 @@ export default function DoctorDashboard() {
             color: "var(--text-primary)"
           }}
         >
-          Welcome, Dr. {user?.name || "Doctor"}
+          Welcome, {user?.name?.startsWith("Dr.") ? user.name : `Dr. ${user?.name || "Doctor"}`}
         </h1>
         <p style={{ color: "var(--text-secondary)", marginBottom: 32 }}>Here is your appointment panel.</p>
         {error && <p style={{ color: "var(--danger)", marginBottom: 16 }}>{error}</p>}
