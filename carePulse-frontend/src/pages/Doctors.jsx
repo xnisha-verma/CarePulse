@@ -29,6 +29,8 @@ export default function Doctors() {
   const [loading, setLoading] = useState(true);
   const pageSize = 6;
 
+  const [isWakingUp, setIsWakingUp] = useState(false);
+
   const query = useMemo(() => {
     const params = new URLSearchParams();
     params.set("page", page);
@@ -40,6 +42,12 @@ export default function Doctors() {
 
   useEffect(() => {
     setLoading(true);
+    setIsWakingUp(false);
+    
+    const timeoutId = setTimeout(() => {
+      setIsWakingUp(true);
+    }, 3000);
+
     api
       .get(`/doctors?${query}`)
       .then((r) => {
@@ -50,7 +58,13 @@ export default function Doctors() {
         });
       })
       .catch((e) => setError(e.message || "Failed to load doctors"))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        clearTimeout(timeoutId);
+        setLoading(false);
+        setIsWakingUp(false);
+      });
+      
+    return () => clearTimeout(timeoutId);
   }, [query]);
 
   return (
@@ -123,7 +137,14 @@ export default function Doctors() {
           <p style={{ color: "var(--danger)", marginBottom: 16 }}>{error}</p>
         )}
         {loading ? (
-          <p style={{ color: "var(--text-secondary)" }}>Loading doctors...</p>
+          <div style={{ color: "var(--text-secondary)" }}>
+            <p>Loading doctors...</p>
+            {isWakingUp && (
+              <p style={{ marginTop: 8, fontSize: 13, color: "var(--text-muted)" }}>
+                Waking up the server... This might take a few moments on the first load.
+              </p>
+            )}
+          </div>
         ) : (
           <>
             <p style={{ color: "var(--text-secondary)", marginBottom: 14 }}>

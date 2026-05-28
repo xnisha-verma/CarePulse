@@ -5,6 +5,7 @@
 **Live Demo:** [https://carepulseweb.netlify.app/](https://carepulseweb.netlify.app/)
 
 **CarePulse** is a modern, full-stack healthcare appointment booking platform that seamlessly connects patients with specialized doctors. Built with a sleek, responsive UI and a robust, secure backend, CarePulse makes managing healthcare simple, fast, and intelligent.
+> **⚠️ Important Note on Live Demo:** The backend runs on Render's free tier. If it has been idle, the first request may take **60–90 seconds** to wake up the server. Subsequent actions are lightning fast!
 
 ---
 
