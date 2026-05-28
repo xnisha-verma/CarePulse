@@ -80,6 +80,41 @@
 
 ---
 
+## 🏗️ Project Structure
+
+The repository is organized into two main directories:
+
+```text
+CarePulse-frontend/
+├── CarePulse/                  # Spring Boot Backend Server
+│   ├── src/main/java/.../      # Controllers, Services, Models, Repositories
+│   └── src/main/resources/     # application.properties
+├── carePulse-frontend/         # React + Vite Frontend Client
+│   ├── src/components/         # Reusable UI Components (Navbar, Chatbot, Cards)
+│   ├── src/pages/              # Main application views (Dashboard, Doctors, etc.)
+│   └── src/styles/             # Global CSS and CSS variables
+├── netlify.toml                # Frontend deployment configuration
+└── README.md
+```
+
+---
+
+## 📡 Core API Endpoints
+
+A quick overview of the primary REST APIs exposed by the backend:
+
+| Endpoint | Method | Role | Description |
+|----------|--------|------|-------------|
+| `/api/auth/register` | `POST` | Public | Register a new patient or doctor account |
+| `/api/auth/login` | `POST` | Public | Authenticate and receive JWT token |
+| `/api/doctors` | `GET` | Public | Fetch paginated list of doctors with filters |
+| `/api/appointments/book` | `POST` | Patient | Book a new appointment slot |
+| `/api/appointments/patient`| `GET` | Patient | Fetch history for the logged-in patient |
+| `/api/appointments/pending`| `GET` | Doctor | Fetch unapproved appointments |
+| `/api/appointments/{id}/status` | `PUT` | Doctor | Approve or reject an appointment |
+
+---
+
 ## 🌍 Production Deployment
 
 CarePulse is architected for modern cloud deployment. 
