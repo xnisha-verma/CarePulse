@@ -40,7 +40,7 @@
 - Node.js (v18+)
 - Java 21+
 - Maven
-- PostgreSQL (Local or Cloud instance)
+- MySQL (Local or Cloud instance)
 
 ### 1. Setup the Backend
 1. Navigate to the backend directory:
